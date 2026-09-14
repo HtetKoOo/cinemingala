@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Movie } from "@/types/movie";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { PaginationLink } from "./pagination-link";
 
 interface SearchResultGridProps {
     title: string;
@@ -55,17 +56,13 @@ export function SearchResultGrid({ title, results, className, query, currentPage
             {totalPages > 0 && (
                 <nav aria-label="Search results pagination" className="flex flex-wrap items-center justify-center gap-4">
                     {currentPage > 1 ? (
-                        <Button asChild variant="outline">
-                            <Link href={pageHref(currentPage - 1)}>Previous</Link>
-                        </Button>
+                        <PaginationLink href={pageHref(currentPage - 1)} label="Previous" />
                     ) : (
                         <Button variant="outline" disabled>Previous</Button>
                     )}
                     <span>Page {currentPage} of {totalPages}</span>
                     {currentPage < totalPages ? (
-                        <Button asChild variant="outline">
-                            <Link href={pageHref(currentPage + 1)}>Next</Link>
-                        </Button>
+                        <PaginationLink href={pageHref(currentPage + 1)} label="Next" />
                     ) : (
                         <Button variant="outline" disabled>Next</Button>
                     )}
