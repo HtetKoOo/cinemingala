@@ -1,23 +1,26 @@
-"use client";
-
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Movie } from "@/types/movie";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface SearchResultGridProps {
     title: string;
     results: Movie[];
     className?: string;
-    currentPage?: number;
-    totalPages?: number;
-    onPageChange?: (page: number) => void;
+    query: string;
+    currentPage: number;
+    totalPages: number;
 }
 
-export function SearchResultGrid({ title, results, className }: SearchResultGridProps) {
+export function SearchResultGrid({ title, results, className, query, currentPage, totalPages }: SearchResultGridProps) {
+    const pageHref = (page: number) =>
+        `/search?${new URLSearchParams({ query, page: String(page) })}`;
+
     return (
         <section className={cn("py-20 px-6 grid gap-6", className)}>
             <h2 className="text-2xl font-semibold">{title}</h2>
+            {results.length === 0 && <p>No movies found. Try another title.</p>}
 
             <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-4">
                 {results.map((result) => (
@@ -49,6 +52,25 @@ export function SearchResultGrid({ title, results, className }: SearchResultGrid
                     </Link>
                 ))}
             </div>
+            {totalPages > 0 && (
+                <nav aria-label="Search results pagination" className="flex flex-wrap items-center justify-center gap-4">
+                    {currentPage > 1 ? (
+                        <Button asChild variant="outline">
+                            <Link href={pageHref(currentPage - 1)}>Previous</Link>
+                        </Button>
+                    ) : (
+                        <Button variant="outline" disabled>Previous</Button>
+                    )}
+                    <span>Page {currentPage} of {totalPages}</span>
+                    {currentPage < totalPages ? (
+                        <Button asChild variant="outline">
+                            <Link href={pageHref(currentPage + 1)}>Next</Link>
+                        </Button>
+                    ) : (
+                        <Button variant="outline" disabled>Next</Button>
+                    )}
+                </nav>
+            )}
         </section>
     );
 }

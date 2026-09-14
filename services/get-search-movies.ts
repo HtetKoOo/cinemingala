@@ -1,8 +1,8 @@
 import { SearchResponse } from "@/types/search";
 
-export async function getSearchMovies(query: string): Promise<SearchResponse> {
+export async function getSearchMovies(query: string, page = 1): Promise<SearchResponse> {
 
-  const url = `${process.env.NEXT_PUBLIC_MOVIE_SEARCH_API_URL}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=en-US&page=1`;
+  const url = `${process.env.NEXT_PUBLIC_MOVIE_SEARCH_API_URL}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=en-US&page=${page}`;
 
   const res = await fetch(url, {
     next: { revalidate: 60 },
@@ -14,6 +14,5 @@ export async function getSearchMovies(query: string): Promise<SearchResponse> {
   }
 
   const data: SearchResponse = await res.json();
-  console.log("Search API response:", data);
   return data;
 }
