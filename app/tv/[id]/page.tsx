@@ -6,6 +6,8 @@ import Link from "next/link";
 import { getTvShowDetails } from "@/services/get-tv-show-details";
 import { getTvShowReviews } from "@/services/get-tv-show-reviews";
 import { getSimilarTvShows } from "@/services/get-similar-tv-show";
+import { getTvShowTrailer } from "@/services/get-tv-show-trailer";
+import { TrailerDialog } from "@/components/movie/trailer-dialog";
 
 export default async function TvShowDetailPage({
     params,
@@ -14,9 +16,12 @@ export default async function TvShowDetailPage({
 }) {
     const { id } = await params;
 
-    const tvShow = await getTvShowDetails(id);
-    const tvShowReview = await getTvShowReviews(id);
-    const similarTvShows = await getSimilarTvShows(id);
+    const [tvShow, tvShowReview, similarTvShows, trailer] = await Promise.all([
+        getTvShowDetails(id),
+        getTvShowReviews(id),
+        getSimilarTvShows(id),
+        getTvShowTrailer(id).catch(() => null),
+    ]);
 
     console.log("tvShow", tvShow);
 
@@ -85,6 +90,7 @@ export default async function TvShowDetailPage({
                                             </Button>
                                         </Link>
                                     )}
+                                    <TrailerDialog trailer={trailer} />
                                     <Link href="/">
                                         <Button className="cursor-pointer bg-blue-400">
                                             Add to List
@@ -106,6 +112,7 @@ export default async function TvShowDetailPage({
                                             </Button>
                                         </Link>
                                     )}
+                                    <TrailerDialog trailer={trailer} />
                                     <Link href="/">
                                         <Button className="cursor-pointer bg-blue-400">
                                             Add to List

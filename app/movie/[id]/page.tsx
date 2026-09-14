@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { getMovieReviews } from "@/services/get-movie-reviews";
 import { getMovieDetails } from "@/services/get-movie-details";
 import { getSimilarMovies } from "@/services/get-similar-movies";
+import { getMovieTrailer } from "@/services/get-movie-trailer";
+import { TrailerDialog } from "@/components/movie/trailer-dialog";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,9 +16,12 @@ export default async function MovieDetailPage({
 }) {
     const { id } = await params;
 
-    const movie = await getMovieDetails(id);
-    const movieReview = await getMovieReviews(id);
-    const similarMovies = await getSimilarMovies(id);
+    const [movie, movieReview, similarMovies, trailer] = await Promise.all([
+        getMovieDetails(id),
+        getMovieReviews(id),
+        getSimilarMovies(id),
+        getMovieTrailer(id).catch(() => null),
+    ]);
 
     console.log("review", movieReview);
 
@@ -85,9 +90,7 @@ export default async function MovieDetailPage({
                                             </Button>
                                         </Link>
                                     )}
-                                    <Link href="" >
-                                        <Button className="cursor-pointer bg-blue-400">Play Trailer</Button>
-                                    </Link>
+                                    <TrailerDialog trailer={trailer} />
                                     <Link href="" >
                                         <Button className="cursor-pointer bg-cyan-400">Add to List</Button>
                                     </Link>
@@ -107,9 +110,7 @@ export default async function MovieDetailPage({
                                             </Button>
                                         </Link>
                                     )}
-                                    <Link href="" >
-                                        <Button className="cursor-pointer bg-blue-400">Play Trailer</Button>
-                                    </Link>
+                                    <TrailerDialog trailer={trailer} />
                                     <Link href="" >
                                         <Button className="cursor-pointer bg-cyan-400">Add to List</Button>
                                     </Link>
