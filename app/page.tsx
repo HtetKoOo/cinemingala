@@ -10,11 +10,20 @@ import { getUpcomingMovies } from "@/services/get-upcoming-movies";
 import { getPopularTvShows } from "@/services/get-popular-tv";
 
 export default async function Home() {
-  const topRatedMovies = await getTopRatedMovies();
-  const popularMovies = await getPopularMovies();
-  const nowPlayingMovies = await getNowPlayingMovies();
-  const upcomingMovies = await getUpcomingMovies();
-  const popularTVSeries = await getPopularTvShows();
+  // These lists are independent, so start all requests before waiting for them.
+  const [
+    topRatedMovies,
+    popularMovies,
+    nowPlayingMovies,
+    upcomingMovies,
+    popularTVSeries,
+  ] = await Promise.all([
+    getTopRatedMovies(),
+    getPopularMovies(),
+    getNowPlayingMovies(),
+    getUpcomingMovies(),
+    getPopularTvShows(),
+  ]);
 
   return (
     <div className="flex w-full items-center justify-center">
@@ -28,4 +37,3 @@ export default async function Home() {
     </div>
   );
 }
-
