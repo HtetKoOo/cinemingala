@@ -23,7 +23,7 @@ export default function MovieCard({ movie }: { movie: Movie | TvShow }) {
                         className="object-cover rounded-t-2xl"
                         priority={false}
                         placeholder="blur"
-                        blurDataURL="/placeholder.png" // optional placeholder
+                        blurDataURL="/images/placeholder.png"
                     />
                 </div>
             </CardContent>

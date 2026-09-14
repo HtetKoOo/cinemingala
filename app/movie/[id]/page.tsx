@@ -219,7 +219,7 @@ export default async function MovieDetailPage({
                                             src={
                                                 sim.poster_path
                                                     ? `https://image.tmdb.org/t/p/w500${sim.poster_path}`
-                                                    : "/no-image.png"
+                                                    : "/images/image-placeholder.png"
                                             }
                                             alt={sim.title}
                                             fill

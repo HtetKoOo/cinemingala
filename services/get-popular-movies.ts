@@ -1,4 +1,4 @@
-import { Movie } from "@/types/movie";
+import type { Movie } from "@/types/movie";
 
 export async function getPopularMovies(page = 1): Promise<Movie[]> {
   const res = await fetch(
@@ -7,9 +7,19 @@ export async function getPopularMovies(page = 1): Promise<Movie[]> {
   );
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch popular movies: ${res.statusText}`);
+    throw new Error(`Failed to fetch popular movies: HTTP ${res.status}`);
   }
 
-  const data = await res.json();
+  const data: unknown = await res.json();
+
+  if (
+    typeof data !== "object" ||
+    data === null ||
+    !("results" in data) ||
+    !Array.isArray(data.results)
+  ) {
+    throw new Error("Invalid popular movies response: expected a results array");
+  }
+
   return data.results as Movie[];
 }
