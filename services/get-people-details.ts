@@ -4,7 +4,7 @@ import { PersonDetail } from "@/types/person";
 
 export const getPeopleDetails = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_PEOPLE_DETAILS_API_URL}/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
+    `${process.env.NEXT_PUBLIC_PEOPLE_DETAILS_API_URL}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
   );
 
   if (!response.ok) {

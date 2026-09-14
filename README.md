@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## TMDB environment setup
+
+The API services use `TMDB_API_KEY` on the server. Set it in `.env.local`:
+
+```dotenv
+TMDB_API_KEY=your_tmdb_api_key
+```
+
+Keep the existing endpoint URL variables configured. They are public API addresses, not credentials. Do not commit `.env.local`; it is ignored by Git. Restart the development server after changing environment variables.
+
+For Vercel, configure `TMDB_API_KEY` and the endpoint URL variables in the project's Environment Variables before deploying. The former `NEXT_PUBLIC_API_KEY` name is no longer used.

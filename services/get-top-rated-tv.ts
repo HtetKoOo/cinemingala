@@ -2,7 +2,7 @@ import { TvShow } from "@/types/tv-show";
 
 export async function getTopRatedTvShows(page = 1): Promise<TvShow[]> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_TOP_RATED_TV_SERIES_API_URL}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=${page}`,
+    `${process.env.NEXT_PUBLIC_TOP_RATED_TV_SERIES_API_URL}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`,
     { next: { revalidate: 3600 } },
   );
 

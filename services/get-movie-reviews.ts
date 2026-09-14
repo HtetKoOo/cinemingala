@@ -29,7 +29,7 @@ export const getMovieReviews = async (
   id: string
 ): Promise<MovieReviewResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_MOVIE_DETAILS_API_URL}/${id}/reviews?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
+    `${process.env.NEXT_PUBLIC_MOVIE_DETAILS_API_URL}/${id}/reviews?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
     { next: { revalidate: 3600 } } // optional: cache for 1h in Next.js
   );
 

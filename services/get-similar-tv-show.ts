@@ -26,7 +26,7 @@ export interface SimilarTvShow {
 
 export const getSimilarTvShows = async (id: string): Promise<SimilarTvShowResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_TV_DETAILS_API_URL}/${id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
+    `${process.env.NEXT_PUBLIC_TV_DETAILS_API_URL}/${id}/similar?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
     { next: { revalidate: 3600 } }, // optional caching (1 hour)
   );
 
