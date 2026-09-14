@@ -1,6 +1,8 @@
 import { getSearchMovies } from "@/services/get-search-movies";
 import { SearchResultGrid } from "@/components/search/search-result-grid";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import SearchLoading from "./loading";
 
 export default async function SearchPage({
     searchParams,
@@ -22,18 +24,26 @@ export default async function SearchPage({
         );
     }
 
-    const results = await getSearchMovies(trimmedQuery, page);
+    return (
+        <Suspense key={JSON.stringify([trimmedQuery, page])} fallback={<SearchLoading />}>
+            <SearchResults query={trimmedQuery} page={page} />
+        </Suspense>
+    );
+}
+
+async function SearchResults({ query, page }: { query: string; page: number }) {
+    const results = await getSearchMovies(query, page);
     const totalPages = Math.min(results.total_pages, 500);
 
     if (totalPages > 0 && page > totalPages) {
-        redirect(`/search?${new URLSearchParams({ query: trimmedQuery, page: String(totalPages) })}`);
+        redirect(`/search?${new URLSearchParams({ query, page: String(totalPages) })}`);
     }
 
     return (
         <SearchResultGrid
-            title={`Search Results for "${trimmedQuery}"`}
+            title={`Search Results for "${query}"`}
             results={results.results}
-            query={trimmedQuery}
+            query={query}
             currentPage={page}
             totalPages={totalPages}
         />
