@@ -9,6 +9,7 @@ import {
 import {
   parseWatchlist,
   toggleWatchlistItem,
+  LEGACY_WATCHLIST_STORAGE_KEY,
   WATCHLIST_STORAGE_KEY,
 } from "@/lib/watchlist";
 import type { WatchlistItem } from "@/types/watchlist";
@@ -36,7 +37,9 @@ function subscribeToWatchlist(onStoreChange: () => void): () => void {
 }
 
 function getWatchlistSnapshot(): WatchlistItem[] {
-  const value = window.localStorage.getItem(WATCHLIST_STORAGE_KEY);
+  const value =
+    window.localStorage.getItem(WATCHLIST_STORAGE_KEY) ??
+    window.localStorage.getItem(LEGACY_WATCHLIST_STORAGE_KEY);
 
   if (value !== cachedValue) {
     cachedValue = value;

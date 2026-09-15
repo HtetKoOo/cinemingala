@@ -17,8 +17,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Movie House",
-  description: "Your go-to platform for all things movies",
+  title: {
+    default: "CineMingala",
+    template: "%s | CineMingala",
+  },
+  applicationName: "CineMingala",
+  description:
+    "Discover movies and TV shows, watch trailers, build a watchlist, and find where to watch.",
 };
 
 export default function RootLayout({

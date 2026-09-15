@@ -1,6 +1,7 @@
 import type { WatchlistIdentity, WatchlistItem } from "@/types/watchlist";
 
-export const WATCHLIST_STORAGE_KEY = "movie-house-watchlist";
+export const WATCHLIST_STORAGE_KEY = "cinemingala-watchlist";
+export const LEGACY_WATCHLIST_STORAGE_KEY = "movie-house-watchlist";
 
 function isWatchlistItem(value: unknown): value is WatchlistItem {
   if (typeof value !== "object" || value === null) return false;

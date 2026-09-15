@@ -30,6 +30,15 @@ export interface PersonDetail {
   place_of_birth: string;
   popularity: number;
   profile_path: string;
+  external_ids: PersonExternalIds;
+}
+
+export interface PersonExternalIds {
+  facebook_id: string | null;
+  instagram_id: string | null;
+  tiktok_id: string | null;
+  twitter_id: string | null;
+  youtube_id: string | null;
 }
 
 export interface PersonCast {

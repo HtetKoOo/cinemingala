@@ -1,6 +1,11 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CineMingala
 
-## Getting Started
+CineMingala is a movie and TV discovery app. Explore titles, watch trailers,
+build a local watchlist, and check where a title is available by region.
+
+It is built with Next.js, React, TypeScript, Tailwind CSS, and the TMDB API.
+
+## Local development
 
 First, run the development server:
 

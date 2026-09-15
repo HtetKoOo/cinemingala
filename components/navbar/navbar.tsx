@@ -62,7 +62,7 @@ export default function Navbar() {
 
                 {/* Left side for medium and larger screens — Logo */}
                 <Link href="/" className="hidden md:flex text-2xl font-semibold tracking-tight px-3 items-center">
-                    <Clapperboard className="mr-1"/><span> Movie House</span>
+                    <Clapperboard className="mr-1"/><span>CineMingala</span>
                 </Link>
 
                 {/* Center — Navigation links for medium and larger screens */}
