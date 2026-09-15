@@ -6,22 +6,30 @@ import { getSimilarMovies } from "@/services/get-similar-movies";
 import { getMovieTrailer } from "@/services/get-movie-trailer";
 import { TrailerDialog } from "@/components/movie/trailer-dialog";
 import { WatchlistButton } from "@/components/watchlist/watchlist-button";
+import { WatchProviderSection } from "@/components/watch-provider/watch-provider-section";
+import { getMovieWatchProviders } from "@/services/get-movie-watch-providers";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function MovieDetailPage({
     params,
+    searchParams,
 }: {
     params: Promise<{ id: string }>;
+    searchParams: Promise<{ region?: string | string[] }>;
 }) {
     const { id } = await params;
+    const query = await searchParams;
+    const requestedRegion = typeof query.region === "string" ? query.region.trim().toUpperCase() : "";
+    const region = /^[A-Z]{2}$/.test(requestedRegion) ? requestedRegion : "US";
 
-    const [movie, movieReview, similarMovies, trailer] = await Promise.all([
+    const [movie, movieReview, similarMovies, trailer, watchProviders] = await Promise.all([
         getMovieDetails(id),
         getMovieReviews(id),
         getSimilarMovies(id),
         getMovieTrailer(id).catch(() => null),
+        getMovieWatchProviders(id, region).catch(() => null),
     ]);
 
     console.log("review", movieReview);
@@ -149,6 +157,8 @@ export default async function MovieDetailPage({
                     </p>
                 </div>
             </section>
+
+            <WatchProviderSection availability={watchProviders} region={region} />
 
             <div className="flex flex-col md:flex-row">
 
