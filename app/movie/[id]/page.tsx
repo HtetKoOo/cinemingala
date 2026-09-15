@@ -5,6 +5,7 @@ import { getMovieDetails } from "@/services/get-movie-details";
 import { getSimilarMovies } from "@/services/get-similar-movies";
 import { getMovieTrailer } from "@/services/get-movie-trailer";
 import { TrailerDialog } from "@/components/movie/trailer-dialog";
+import { WatchlistButton } from "@/components/watchlist/watchlist-button";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -91,9 +92,13 @@ export default async function MovieDetailPage({
                                         </Link>
                                     )}
                                     <TrailerDialog trailer={trailer} />
-                                    <Link href="" >
-                                        <Button className="cursor-pointer bg-cyan-400">Add to List</Button>
-                                    </Link>
+                                    <WatchlistButton item={{
+                                        id: movie.id,
+                                        media_type: "movie",
+                                        title: movie.title,
+                                        poster_path: movie.poster_path,
+                                        vote_average: movie.vote_average,
+                                    }} />
                                 </div>
                                 <p className="mb-4 sm:hidden lg:block">
                                     <strong>Overview -</strong> {movie.overview}
@@ -111,9 +116,13 @@ export default async function MovieDetailPage({
                                         </Link>
                                     )}
                                     <TrailerDialog trailer={trailer} />
-                                    <Link href="" >
-                                        <Button className="cursor-pointer bg-cyan-400">Add to List</Button>
-                                    </Link>
+                                    <WatchlistButton item={{
+                                        id: movie.id,
+                                        media_type: "movie",
+                                        title: movie.title,
+                                        poster_path: movie.poster_path,
+                                        vote_average: movie.vote_average,
+                                    }} />
                                 </div>
                             </div>
                         </div>

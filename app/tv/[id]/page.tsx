@@ -8,6 +8,7 @@ import { getTvShowReviews } from "@/services/get-tv-show-reviews";
 import { getSimilarTvShows } from "@/services/get-similar-tv-show";
 import { getTvShowTrailer } from "@/services/get-tv-show-trailer";
 import { TrailerDialog } from "@/components/movie/trailer-dialog";
+import { WatchlistButton } from "@/components/watchlist/watchlist-button";
 
 export default async function TvShowDetailPage({
     params,
@@ -91,11 +92,13 @@ export default async function TvShowDetailPage({
                                         </Link>
                                     )}
                                     <TrailerDialog trailer={trailer} />
-                                    <Link href="/">
-                                        <Button className="cursor-pointer bg-blue-400">
-                                            Add to List
-                                        </Button>
-                                    </Link>
+                                    <WatchlistButton item={{
+                                        id: tvShow.id,
+                                        media_type: "tv",
+                                        title: tvShow.name,
+                                        poster_path: tvShow.poster_path,
+                                        vote_average: tvShow.vote_average,
+                                    }} />
                                 </div>
                                 <p className="mb-4 sm:hidden lg:block">
                                     <strong>Overview -</strong> {tvShow.overview}
@@ -113,11 +116,13 @@ export default async function TvShowDetailPage({
                                         </Link>
                                     )}
                                     <TrailerDialog trailer={trailer} />
-                                    <Link href="/">
-                                        <Button className="cursor-pointer bg-blue-400">
-                                            Add to List
-                                        </Button>
-                                    </Link>
+                                    <WatchlistButton item={{
+                                        id: tvShow.id,
+                                        media_type: "tv",
+                                        title: tvShow.name,
+                                        poster_path: tvShow.poster_path,
+                                        vote_average: tvShow.vote_average,
+                                    }} />
                                 </div>
                             </div>
                         </div>
