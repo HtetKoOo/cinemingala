@@ -12,6 +12,5 @@ export const getPeopleDetails = async (id: string) => {
   }
 
   const data = await response.json() as PersonDetail;
-  console.log("people detail", data)
   return data;
 };

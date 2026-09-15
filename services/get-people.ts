@@ -12,6 +12,5 @@ export async function getPeople(page = 1): Promise<Person[]> {
   }
 
   const data = (await res.json()) as PeopleResponse;
-  console.log("person", data.results)
   return data.results;
 }

@@ -12,6 +12,5 @@ export const getTvShowDetails = async (id: string) => {
   }
 
   const data = await response.json();
-  console.log("tv",data)
   return data as TvShow;
 };

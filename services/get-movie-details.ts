@@ -12,7 +12,5 @@ export const getMovieDetails = async (id: string) => {
   }
 
   const data = await response.json() as Movie;
-  console.log("movie detail", data)
-  console.log("homepage",data.homepage)
   return data;
 };

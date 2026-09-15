@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { Button } from "./ui/button";
-import { CirclePlay } from "lucide-react";
 import { Movie } from "@/types/movie";
 import Link from "next/link";
 
