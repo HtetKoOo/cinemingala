@@ -3,6 +3,7 @@ import type {
   WatchProvider,
   WatchProviderRegion,
 } from "@/types/watch-provider";
+import { RegionSelector } from "./region-selector";
 
 interface ProviderGroup {
   label: string;
@@ -31,7 +32,7 @@ export function WatchProviderSection({
     <section className="mx-2 md:mx-6 mb-8 rounded-2xl border p-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
         <h2 className="text-2xl font-bold">Where to Watch</h2>
-        <p className="text-sm text-muted-foreground">Region: {region}</p>
+        <RegionSelector region={region} />
       </div>
 
       {availability && availableGroups.length > 0 ? (
