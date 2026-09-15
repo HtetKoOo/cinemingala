@@ -15,11 +15,14 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Clapperboard, Menu, Search } from "lucide-react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useWatchlist } from "@/components/watchlist/watchlist-provider"
 
 export default function Navbar() {
     
     const [query, setQuery] = useState("");
     const router = useRouter();
+    const { items, hydrated } = useWatchlist();
+    const watchlistLabel = `Watchlist${hydrated && items.length > 0 ? ` (${items.length})` : ""}`;
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -49,8 +52,8 @@ export default function Navbar() {
                                 <Link href="/people" className="hover:text-foreground">
                                     People
                                 </Link>
-                                <Link href="/about" className="hover:text-foreground">
-                                    About
+                                <Link href="/watchlist" className="hover:text-foreground">
+                                    {watchlistLabel}
                                 </Link>
                             </nav>
                         </SheetContent>
@@ -75,9 +78,9 @@ export default function Navbar() {
                                 <Link href="/people" className="bg-gray-200/40 font-semibold text-center">People</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
-                        <NavigationMenuItem className="w-20">
+                        <NavigationMenuItem className="w-30">
                             <NavigationMenuLink asChild>
-                                <Link href="/about" className="bg-gray-200/40 font-semibold text-center">About</Link>
+                                <Link href="/watchlist" className="bg-gray-200/40 font-semibold text-center">{watchlistLabel}</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                     </NavigationMenuList>
