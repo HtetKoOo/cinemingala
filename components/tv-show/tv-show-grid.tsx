@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { cn } from "@/lib/utils"; // optional, for className merging
+import { cn } from "@/lib/utils";
 import { TvShow } from "@/types/tv-show";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ export function TvShowGrid({ title, shows, className }: TvShowGridProps) {
         <section className={cn("py-2 grid gap-6", className)}>
             <h2 className="text-2xl font-semibold">{title}</h2>
 
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 sm:gap-4">
                 {shows.map((show) => (
                     <Link
                         href={`/tv/${show.id}`}
@@ -31,7 +31,7 @@ export function TvShowGrid({ title, shows, className }: TvShowGridProps) {
                                 alt={show.name}
                                 fill
                                 className="object-cover"
-                                sizes="(max-width: 639px) 25vw, (max-width: 767px) 20vw, (max-width: 1023px) 12.5vw, 10vw"
+                                sizes="(max-width: 639px) 50vw, (max-width: 767px) 33vw, (max-width: 1023px) 25vw, (max-width: 1279px) 17vw, (max-width: 1535px) 13vw, 10vw"
                             />
                         </div>
 
