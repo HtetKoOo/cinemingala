@@ -11,7 +11,7 @@ export default function PeopleLoading() {
                         className="border rounded-2xl shadow overflow-hidden h-full flex flex-col"
                     >
                         {/* Image Skeleton */}
-                        <div className="relative w-full aspect-3/4 bg-gray-100">
+                        <div className="relative w-full aspect-3/4 bg-muted">
                             <Skeleton className="h-full w-full" />
                         </div>
 

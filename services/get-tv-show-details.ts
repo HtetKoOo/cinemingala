@@ -1,10 +1,11 @@
 "use server"
 
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 import { TvShow } from "@/types/tv-show";
 
 export const getTvShowDetails = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_TV_DETAILS_API_URL}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
+    `${TMDB_ENDPOINTS.tvDetails}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
   );
 
   if (!response.ok) {

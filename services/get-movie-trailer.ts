@@ -1,11 +1,12 @@
 "use server";
 
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 import { selectTrailer } from "@/lib/select-trailer";
 import type { MovieVideo, MovieVideosResponse } from "@/types/video";
 
 export async function getMovieTrailer(id: string): Promise<MovieVideo | null> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_MOVIE_DETAILS_API_URL}/${encodeURIComponent(id)}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
+    `${TMDB_ENDPOINTS.movieDetails}/${encodeURIComponent(id)}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
     { next: { revalidate: 3600 } },
   );
 

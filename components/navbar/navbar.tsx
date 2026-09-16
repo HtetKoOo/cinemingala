@@ -31,7 +31,7 @@ export default function Navbar() {
     };
 
     return (
-    <header className="flex fixed top-0 z-50 w-full bg-gray-200/20 border-b rounded-b-2xl backdrop-blur-sm">
+    <header className="flex fixed top-0 z-50 w-full border-b bg-background/90 rounded-b-2xl backdrop-blur-sm">
             <div className="flex h-16 w-full items-center justify-between px-4 md:px-6">
                 {/* Left side for small screens — Dropdown Menu */}
                 <div className="md:hidden">
@@ -41,7 +41,7 @@ export default function Navbar() {
                                 <Menu className="h-6 w-6" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="w-64 p-4 rounded-r-2xl backdrop-blur-sm">
+                        <SheetContent side="left" className="w-64 p-4 rounded-r-2xl">
                             <nav className="grid gap-6 text-lg font-medium">
                                 <Link href="/" className="hover:text-foreground">
                                     Movies
@@ -70,17 +70,17 @@ export default function Navbar() {
                     <NavigationMenuList className="flex space-x-3">
                         <NavigationMenuItem className="w-30">
                             <NavigationMenuLink asChild>
-                                <Link href="/tv" className="bg-gray-200/40 font-semibold text-center">TV Series</Link>
+                                <Link href="/tv" className="bg-secondary text-secondary-foreground font-semibold text-center">TV Series</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem className="w-20">
                             <NavigationMenuLink asChild>
-                                <Link href="/people" className="bg-gray-200/40 font-semibold text-center">People</Link>
+                                <Link href="/people" className="bg-secondary text-secondary-foreground font-semibold text-center">People</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem className="w-30">
                             <NavigationMenuLink asChild>
-                                <Link href="/watchlist" className="bg-gray-200/40 font-semibold text-center">{watchlistLabel}</Link>
+                                <Link href="/watchlist" className="bg-secondary text-secondary-foreground font-semibold text-center">{watchlistLabel}</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                     </NavigationMenuList>
@@ -94,14 +94,16 @@ export default function Navbar() {
                             placeholder="Search..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="w-full pl-8 pr-10 placeholder:text-black"
+                            className="w-full pl-8 pr-10"
                         />
                         <Button
                             type="submit"
                             size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 bg-transparent hover:bg-gray-300/20"
+                            variant="ghost"
+                            aria-label="Search"
+                            className="absolute right-1 top-1/2 -translate-y-1/2"
                         >
-                            <Search className="h-5 w-5 text-black" />
+                            <Search className="h-5 w-5" />
                         </Button>
                     </div>
                 </form>

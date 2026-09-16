@@ -66,7 +66,7 @@ export default function Loading() {
                     <Skeleton className="h-8 w-48 mb-6" />
                     <div className="space-y-4">
                         {[1, 2, 3].map((i) => (
-                            <div key={i} className="rounded-2xl p-4 border border-gray-200 shadow-md">
+                            <div key={i} className="rounded-2xl p-4 border border-border shadow-md">
                                 <div className="flex items-center gap-3 mb-4">
                                     <Skeleton className="w-10 h-10 rounded-full" />
                                     <div className="space-y-1">

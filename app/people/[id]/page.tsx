@@ -88,7 +88,7 @@ export default async function PersonPage({
                     {person.also_known_as && person.also_known_as.length > 0 && (
                         <div className="mt-2">
                             <strong>Also Known As:</strong>
-                            <ul className="list-disc list-inside text-sm text-gray-400 mt-1 space-y-1">
+                            <ul className="list-disc list-inside text-sm text-muted-foreground mt-1 space-y-1">
                                 {person.also_known_as.slice(0, 5).map((name, index) => (
                                     <li key={index}>{name}</li>
                                 ))}
@@ -113,7 +113,7 @@ export default async function PersonPage({
                                 href={`/${credit.media_type === "movie" ? "movie" : "tv"}/${credit.id}`}
                                 className="group"
                             >
-                                <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-gray-200 mb-2">
+                                <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-muted mb-2">
                                     <Image
                                         src={
                                             credit.poster_path

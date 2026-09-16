@@ -33,14 +33,14 @@ export default function AboutPage() {
     return (
         <main className="min-h-screen px-4 pb-12 pt-24">
             <section className="mx-auto max-w-5xl">
-                <div className="rounded-3xl border border-white/10 bg-gray-500/10 p-6 sm:p-10">
+                <div className="rounded-3xl border border-border bg-muted/50 p-6 sm:p-10">
                     <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">
                         About the project
                     </p>
                     <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-6xl">
                         Find your next movie night.
                     </h1>
-                    <p className="mt-5 max-w-3xl text-base leading-7 text-gray-400 sm:text-lg">
+                    <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
                         CineMingala is a movie and TV discovery app. Search for a title, watch its
                         trailer, save it to your watchlist, and see where it is available in your
                         region.
@@ -54,7 +54,7 @@ export default function AboutPage() {
                         </Link>
                         <Link
                             href="/watchlist"
-                            className="rounded-full border border-gray-500 px-5 py-2.5 font-semibold transition hover:bg-gray-500/20"
+                            className="rounded-full border border-border px-5 py-2.5 font-semibold transition hover:bg-muted"
                         >
                             Open watchlist
                         </Link>
@@ -69,24 +69,24 @@ export default function AboutPage() {
                         {features.map(({ title, description, icon: Icon }) => (
                             <article
                                 key={title}
-                                className="rounded-2xl border border-white/10 bg-gray-500/10 p-5"
+                                className="rounded-2xl border border-border bg-muted/50 p-5"
                             >
                                 <Icon className="h-6 w-6 text-emerald-400" aria-hidden="true" />
                                 <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-                                <p className="mt-2 leading-6 text-gray-400">{description}</p>
+                                <p className="mt-2 leading-6 text-muted-foreground">{description}</p>
                             </article>
                         ))}
                     </div>
                 </section>
 
-                <section className="mt-10 rounded-2xl border border-white/10 bg-gray-500/10 p-6">
+                <section className="mt-10 rounded-2xl border border-border bg-muted/50 p-6">
                     <h2 className="text-2xl font-bold">Built with</h2>
-                    <p className="mt-3 leading-7 text-gray-400">
+                    <p className="mt-3 leading-7 text-muted-foreground">
                         Next.js, React, TypeScript, and Tailwind CSS power the interface. Movie,
                         TV, trailer, and watch-provider metadata comes from TMDB. Watch-provider
                         availability is supplied by JustWatch through TMDB.
                     </p>
-                    <p className="mt-4 text-sm leading-6 text-gray-500">
+                    <p className="mt-4 text-sm leading-6 text-muted-foreground">
                         This product uses the TMDB API but is not endorsed or certified by TMDB.
                         CineMingala does not host or stream movies.
                     </p>

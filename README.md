@@ -7,47 +7,30 @@ It is built with Next.js, React, TypeScript, Tailwind CSS, and the TMDB API.
 
 ## Local development
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## TMDB environment setup
-
-The API services use `TMDB_API_KEY` on the server. Set it in `.env.local`:
+Create `.env.local` in the project root:
 
 ```dotenv
 TMDB_API_KEY=your_tmdb_api_key
 ```
 
-Keep the existing endpoint URL variables configured. They are public API addresses, not credentials. Do not commit `.env.local`; it is ignored by Git. Restart the development server after changing environment variables.
+The TMDB endpoint URLs are defined in `lib/tmdb-endpoints.ts`. The API key is
+used only by server-side services. Do not commit `.env.local`.
 
-For Vercel, configure `TMDB_API_KEY` and the endpoint URL variables in the project's Environment Variables before deploying. The former `NEXT_PUBLIC_API_KEY` name is no longer used.
+Install dependencies and start the development server:
+
+```bash
+npm ci
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Deploy on Vercel
+
+Set `TMDB_API_KEY` in the Vercel project's Environment Variables for Production
+and Preview deployments. No endpoint URL variables are required. Redeploy after
+changing environment variables.
+
+Next.js image optimization is disabled in `next.config.ts`. TMDB supplies
+pre-sized image URLs, so images load directly from its CDN instead of using
+Vercel Image Optimization quota.

@@ -1,8 +1,9 @@
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 import { Movie } from "@/types/movie";
 
 export async function getNowPlayingMovies(page = 1): Promise<Movie[]> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_NOW_PLAYING_API_URL}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`,
+    `${TMDB_ENDPOINTS.nowPlayingMovies}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`,
     { next: { revalidate: 3600 } },
   );
 

@@ -1,8 +1,9 @@
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 import { SearchResponse } from "@/types/search";
 
 export async function getSearchMovies(query: string, page = 1): Promise<SearchResponse> {
 
-  const url = `${process.env.NEXT_PUBLIC_MOVIE_SEARCH_API_URL}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=en-US&page=${page}`;
+  const url = `${TMDB_ENDPOINTS.movieSearch}?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=en-US&page=${page}`;
 
   const res = await fetch(url, {
     next: { revalidate: 60 },

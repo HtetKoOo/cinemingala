@@ -1,5 +1,6 @@
 "use server";
 
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 export interface SimilarMoviesResponse {
   page: number;
   results: SimilarMovie[];
@@ -28,7 +29,7 @@ export const getSimilarMovies = async (
   id: string
 ): Promise<SimilarMoviesResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_MOVIE_DETAILS_API_URL}/${id}/similar?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
+    `${TMDB_ENDPOINTS.movieDetails}/${id}/similar?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`,
     { next: { revalidate: 3600 } } // optional caching (1 hour)
   );
 

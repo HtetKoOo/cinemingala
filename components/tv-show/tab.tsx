@@ -29,7 +29,7 @@ export function TvShowTabs({ defaultValue, tabs }: TvShowTabsProps) {
                         <TabsTrigger
                             key={tab.value}
                             value={tab.value}
-                            className="rounded-2xl px-2 py-2 text-sm font-medium data-[state=active]:bg-primary data-[state=active]:text-white transition"
+                            className="rounded-2xl px-2 py-2 text-sm font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition"
                         >
                             {tab.label}
                         </TabsTrigger>

@@ -1,5 +1,6 @@
 "use server";
 
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 import { selectWatchProviders } from "@/lib/select-watch-providers";
 import type {
   WatchProviderRegion,
@@ -11,7 +12,7 @@ export async function getTvShowWatchProviders(
   region: string,
 ): Promise<WatchProviderRegion | null> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_TV_DETAILS_API_URL}/${encodeURIComponent(id)}/watch/providers?api_key=${process.env.TMDB_API_KEY}`,
+    `${TMDB_ENDPOINTS.tvDetails}/${encodeURIComponent(id)}/watch/providers?api_key=${process.env.TMDB_API_KEY}`,
     { next: { revalidate: 3600 } },
   );
 

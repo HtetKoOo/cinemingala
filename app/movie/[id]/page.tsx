@@ -93,7 +93,7 @@ export default async function MovieDetailPage({
                 <div className="mb-4 flex gap-3 lg:hidden">
                   {movie.homepage && (
                     <Link href={movie.homepage}>
-                      <Button className="cursor-pointer bg-green-400">
+                      <Button className="cursor-pointer bg-green-400 text-black hover:bg-green-300">
                         Watch Now
                       </Button>
                     </Link>
@@ -119,7 +119,7 @@ export default async function MovieDetailPage({
                 <div className="mb-4 hidden space-x-3 lg:block">
                   {movie.homepage && (
                     <Link href={movie.homepage}>
-                      <Button className="cursor-pointer bg-green-400">
+                      <Button className="cursor-pointer bg-green-400 text-black hover:bg-green-300">
                         Watch Now
                       </Button>
                     </Link>
@@ -173,7 +173,7 @@ export default async function MovieDetailPage({
               {movieReview.results.map((review) => (
                 <div
                   key={review.id}
-                  className="rounded-2xl border border-gray-200 p-4 shadow-md"
+                  className="rounded-2xl border border-border p-4 shadow-md"
                 >
                   <div className="mb-1 flex items-center gap-3">
                     {review.author_details.avatar_path ? (
@@ -234,7 +234,7 @@ export default async function MovieDetailPage({
                 <Link
                   key={sim.id}
                   href={`/movie/${sim.id}`}
-                  className="overflow-hidden rounded-2xl border border-gray-200 shadow-md transition-transform duration-200 hover:scale-102"
+                  className="overflow-hidden rounded-2xl border border-border shadow-md transition-transform duration-200 hover:scale-102"
                 >
                   <div className="relative aspect-3/4 w-full overflow-hidden">
                     <Image
