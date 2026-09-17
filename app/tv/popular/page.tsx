@@ -1,10 +1,5 @@
-import { TvShowGrid } from "@/components/tv-show/tv-show-grid";
-import { getPopularTvShows } from "@/services/get-popular-tv";
+import { redirect } from "next/navigation";
 
-export default async function PopularTvPage() {
-  const shows = await getPopularTvShows();
-
-  return (
-    <TvShowGrid title="Popular TV Shows" shows={shows} />
-  );
+export default function PopularTvPage() {
+  redirect("/tv?category=popular");
 }

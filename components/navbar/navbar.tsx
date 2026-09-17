@@ -14,16 +14,28 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Clapperboard, Menu, Search } from "lucide-react"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useWatchlist } from "@/components/watchlist/watchlist-provider"
+import { cn } from "@/lib/utils"
 
 export default function Navbar() {
     
     const [query, setQuery] = useState("");
-    const [menuOpen, setMenuOpen] = useState(false);
     const router = useRouter();
+    const pathname = usePathname();
     const { items, hydrated } = useWatchlist();
     const watchlistLabel = `Watchlist${hydrated && items.length > 0 ? ` (${items.length})` : ""}`;
+    const navItems = [
+        { href: "/movies", label: "Movies", width: "w-24" },
+        { href: "/tv", label: "TV Series", width: "w-30" },
+        { href: "/people", label: "People", width: "w-20" },
+        { href: "/watchlist", label: watchlistLabel, width: "w-30" },
+    ];
+    const isActive = (href: string) =>
+        pathname === href || pathname.startsWith(`${href}/`) ||
+        (href === "/movies" && pathname.startsWith("/movie/"));
+    const currentLocation = (href: string) =>
+        pathname === href ? "page" as const : isActive(href) ? "location" as const : undefined;
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,23 +48,44 @@ export default function Navbar() {
             <div className="flex h-16 w-full items-center gap-2 px-3 sm:px-4 lg:px-6">
                 {/* Left side for small screens — Dropdown Menu */}
                 <div className="shrink-0 lg:hidden">
-                    <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+                    <Sheet>
                         <SheetTrigger asChild>
-                            <Button variant="outline" size="icon" aria-label="Open menu">
-                                <Menu className="h-6 w-6" />
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="icon"
+                                aria-label="Open menu"
+                                className="size-11 touch-manipulation rounded-xl"
+                            >
+                                <Menu className="size-5" aria-hidden="true" />
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" className="w-[min(16rem,85vw)] rounded-r-2xl p-4 pt-14">
-                            <SheetTitle className="mb-2 text-lg">Explore</SheetTitle>
+                            <SheetTitle className="mb-3 text-lg">
+                                <SheetClose asChild>
+                                    <Link
+                                        href="/"
+                                        aria-current={pathname === "/" ? "page" : undefined}
+                                        className="inline-flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-accent hover:text-accent-foreground"
+                                    >
+                                        <Clapperboard className="size-5" aria-hidden="true" />
+                                        CineMingala
+                                    </Link>
+                                </SheetClose>
+                            </SheetTitle>
                             <nav className="grid gap-1 text-base font-medium" aria-label="Main navigation">
-                                {[
-                                    { href: "/", label: "Movies" },
-                                    { href: "/tv", label: "TV Series" },
-                                    { href: "/people", label: "People" },
-                                    { href: "/watchlist", label: watchlistLabel },
-                                ].map(({ href, label }) => (
+                                {navItems.map(({ href, label }) => (
                                     <SheetClose asChild key={href}>
-                                        <Link href={href} className="rounded-lg px-3 py-3 transition-colors hover:bg-accent hover:text-accent-foreground">
+                                        <Link
+                                            href={href}
+                                            aria-current={currentLocation(href)}
+                                            className={cn(
+                                                "rounded-lg px-3 py-3 transition-colors",
+                                                isActive(href)
+                                                    ? "bg-primary text-primary-foreground"
+                                                    : "hover:bg-accent hover:text-accent-foreground",
+                                            )}
+                                        >
                                             {label}
                                         </Link>
                                     </SheetClose>
@@ -70,21 +103,24 @@ export default function Navbar() {
                 {/* Center — Navigation links for medium and larger screens */}
                 <NavigationMenu className="hidden lg:flex">
                     <NavigationMenuList className="flex space-x-3">
-                        <NavigationMenuItem className="w-30">
-                            <NavigationMenuLink asChild>
-                                <Link href="/tv" className="bg-secondary text-secondary-foreground font-semibold text-center">TV Series</Link>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem className="w-20">
-                            <NavigationMenuLink asChild>
-                                <Link href="/people" className="bg-secondary text-secondary-foreground font-semibold text-center">People</Link>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem className="w-30">
-                            <NavigationMenuLink asChild>
-                                <Link href="/watchlist" className="bg-secondary text-secondary-foreground font-semibold text-center">{watchlistLabel}</Link>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
+                        {navItems.map(({ href, label, width }) => (
+                            <NavigationMenuItem key={href} className={width}>
+                                <NavigationMenuLink asChild>
+                                    <Link
+                                        href={href}
+                                        aria-current={currentLocation(href)}
+                                        className={cn(
+                                            "text-center font-semibold",
+                                            isActive(href)
+                                                ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                                                : "bg-secondary text-secondary-foreground",
+                                        )}
+                                    >
+                                        {label}
+                                    </Link>
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
+                        ))}
                     </NavigationMenuList>
                 </NavigationMenu>
 

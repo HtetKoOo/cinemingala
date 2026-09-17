@@ -121,11 +121,19 @@
   }
 }
 
-/* Hide scrollbar globally */
+/* Keep the document from panning sideways without creating a second scroll container. */
+html {
+  overflow-x: clip;
+  scrollbar-gutter: stable;
+}
+
+body {
+  overflow-x: clip;
+}
+
 html, body {
-  overflow-y: scroll;               /* keeps layout stable */
-  scrollbar-width: none;            /* Firefox */
-  -ms-overflow-style: none;         /* IE & Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 html::-webkit-scrollbar,

@@ -2,7 +2,7 @@ interface KnownFor {
   id: number;
   title?: string;
   name?: string;
-  media_type: string;
+  media_type?: string;
 }
 
 export interface Person {
@@ -10,9 +10,9 @@ export interface Person {
   name: string;
   original_name: string;
   known_for_department: string;
-  profile_path: string;
+  profile_path: string | null;
   popularity: number;
-  known_for: KnownFor[];
+  known_for?: KnownFor[] | null;
 }
 
 export interface PersonDetail {

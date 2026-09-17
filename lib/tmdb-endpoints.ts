@@ -13,5 +13,7 @@ export const TMDB_ENDPOINTS = {
   airingTodayTv: `${TMDB_API_BASE_URL}/tv/airing_today`,
   tvDetails: `${TMDB_API_BASE_URL}/tv`,
   popularPeople: `${TMDB_API_BASE_URL}/person/popular`,
+  trendingPeopleToday: `${TMDB_API_BASE_URL}/trending/person/day`,
+  trendingPeopleWeek: `${TMDB_API_BASE_URL}/trending/person/week`,
   peopleDetails: `${TMDB_API_BASE_URL}/person`,
 } as const;

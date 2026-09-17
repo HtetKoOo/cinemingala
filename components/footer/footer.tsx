@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
 const exploreLinks = [
-    { label: "Movies", href: "/" },
+    { label: "Movies", href: "/movies" },
     { label: "TV Series", href: "/tv" },
     { label: "People", href: "/people" },
     { label: "Watchlist", href: "/watchlist" },

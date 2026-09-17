@@ -19,7 +19,7 @@ export default function Error({
         <div className="flex h-[70vh] w-full flex-col items-center justify-center gap-4 text-center">
             <h2 className="text-2xl font-bold">Something went wrong!</h2>
             <p className="text-muted-foreground">
-                We encountered an error while loading the movies.
+                We encountered an error while loading this page.
             </p>
             <Button
                 onClick={
