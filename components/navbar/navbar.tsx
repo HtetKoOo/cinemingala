@@ -8,7 +8,6 @@ import {
     NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { UserMenu } from "../user-menu"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
@@ -147,12 +146,8 @@ export default function Navbar() {
                     </div>
                 </form>
 
-                {/* Right side — Theme Toggle and User Menu */}
-                <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+                <div className="shrink-0">
                     <ThemeToggle />
-                    <div className="hidden sm:block">
-                        <UserMenu />
-                    </div>
                 </div>
             </div>
         </header>
