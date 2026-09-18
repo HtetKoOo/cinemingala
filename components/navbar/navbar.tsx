@@ -129,7 +129,7 @@ export default function Navbar() {
                     <div className="relative w-full max-w-md min-w-0">
                         <Input
                             type="search"
-                            aria-label="Search movies and TV shows"
+                            aria-label="Search movies, TV series, and people"
                             placeholder="Search..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}

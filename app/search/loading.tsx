@@ -2,11 +2,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function SearchLoading() {
   return (
-    <section className="grid gap-6 px-6 py-20">
-      <p role="status">Searching for movies...</p>
+    <section className="grid gap-6 py-6">
+      <p role="status">Searching...</p>
       <div
         aria-hidden="true"
-        className="grid grid-cols-4 gap-4 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10"
+        className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10"
       >
         {Array.from({ length: 20 }, (_, index) => (
           <div key={index} className="overflow-hidden rounded-2xl border">

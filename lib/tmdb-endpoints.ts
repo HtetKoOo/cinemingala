@@ -7,6 +7,8 @@ export const TMDB_ENDPOINTS = {
   upcomingMovies: `${TMDB_API_BASE_URL}/movie/upcoming`,
   movieDetails: `${TMDB_API_BASE_URL}/movie`,
   movieSearch: `${TMDB_API_BASE_URL}/search/movie`,
+  tvSearch: `${TMDB_API_BASE_URL}/search/tv`,
+  personSearch: `${TMDB_API_BASE_URL}/search/person`,
   popularTv: `${TMDB_API_BASE_URL}/tv/popular`,
   topRatedTv: `${TMDB_API_BASE_URL}/tv/top_rated`,
   onAirTv: `${TMDB_API_BASE_URL}/tv/on_the_air`,
