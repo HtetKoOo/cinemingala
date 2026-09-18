@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { Button } from "./ui/button";
-import { CirclePlay } from "lucide-react";
 import { Movie } from "@/types/movie";
 import Link from "next/link";
 
@@ -33,7 +32,11 @@ export default function MovieSlider({ topRatedMovies }: { topRatedMovies: Movie[
                         {/* Background image */}
                         <div className="relative w-full h-[40vh] md:h-[55vh] lg:h-[70vh]">
                             <Image
-                                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                                src={
+                                    movie.poster_path
+                                        ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+                                        : "/images/image-placeholder.png"
+                                }
                                 alt={movie.title || "Movie Poster"}
                                 fill
                                 priority={index === 0} // preload first image for better UX

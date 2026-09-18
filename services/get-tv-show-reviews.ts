@@ -1,5 +1,6 @@
 "use server";
 
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 export interface TvShowReviewResponse {
   id: number;
   page: number;
@@ -27,7 +28,7 @@ export interface AuthorDetails {
 
 export const getTvShowReviews = async (id: string): Promise<TvShowReviewResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_TV_DETAILS_API_URL}/${id}/reviews?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
+    `${TMDB_ENDPOINTS.tvDetails}/${id}/reviews?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
     { next: { revalidate: 3600 } }, // optional: cache for 1h in Next.js
   );
 

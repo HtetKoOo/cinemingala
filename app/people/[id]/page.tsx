@@ -3,7 +3,14 @@ import { getPeopleDetails } from "@/services/get-people-details";
 import { Globe } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaGithub, FaTelegram, FaTwitter } from "react-icons/fa";
+import {
+    FaFacebook,
+    FaImdb,
+    FaInstagram,
+    FaTiktok,
+    FaXTwitter,
+    FaYoutube,
+} from "react-icons/fa6";
 
 export default async function PersonPage({
     params,
@@ -37,35 +44,42 @@ export default async function PersonPage({
                     <p className=" ">
                         <strong>Known for - </strong>{person.known_for_department}
                     </p>
-                    <div className="flex gap-2 md:gap-4">
-                        <a
-                            href="https://x.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Twitter"
-                            className="cursor-pointer"
-                        >
-                            <FaTwitter className="w-6 h-6 hover:text-[#1DA1F2]" />
-                        </a>
-                        <a
-                            href="https://t.me"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Telegram"
-                        >
-                            <FaTelegram className="w-6 h-6 hover:text-[#229ED9]" />
-                        </a>
-                        <a
-                            href="https://github.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Github"
-                        >
-                            <FaGithub className="w-6 h-6 hover:text-[#6e7681]" />
-                        </a>
-                        <Link href="/about">
-                            <Globe className="w-6 h-6 hover:text-green-400" />
-                        </Link>
+                    <div className="flex flex-wrap gap-3 py-1">
+                        {person.homepage && (
+                            <a href={person.homepage} target="_blank" rel="noopener noreferrer" aria-label={`${person.name}'s website`}>
+                                <Globe className="h-6 w-6 hover:text-green-400" />
+                            </a>
+                        )}
+                        {person.imdb_id && (
+                            <a href={`https://www.imdb.com/name/${person.imdb_id}`} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on IMDb`}>
+                                <FaImdb className="h-6 w-6 hover:text-yellow-400" />
+                            </a>
+                        )}
+                        {person.external_ids.instagram_id && (
+                            <a href={`https://www.instagram.com/${person.external_ids.instagram_id}`} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on Instagram`}>
+                                <FaInstagram className="h-6 w-6 hover:text-pink-500" />
+                            </a>
+                        )}
+                        {person.external_ids.twitter_id && (
+                            <a href={`https://x.com/${person.external_ids.twitter_id}`} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on X`}>
+                                <FaXTwitter className="h-6 w-6 hover:text-gray-400" />
+                            </a>
+                        )}
+                        {person.external_ids.facebook_id && (
+                            <a href={`https://www.facebook.com/${person.external_ids.facebook_id}`} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on Facebook`}>
+                                <FaFacebook className="h-6 w-6 hover:text-blue-500" />
+                            </a>
+                        )}
+                        {person.external_ids.tiktok_id && (
+                            <a href={`https://www.tiktok.com/@${person.external_ids.tiktok_id}`} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on TikTok`}>
+                                <FaTiktok className="h-6 w-6 hover:text-pink-400" />
+                            </a>
+                        )}
+                        {person.external_ids.youtube_id && (
+                            <a href={`https://www.youtube.com/${person.external_ids.youtube_id}`} target="_blank" rel="noopener noreferrer" aria-label={`${person.name} on YouTube`}>
+                                <FaYoutube className="h-6 w-6 hover:text-red-500" />
+                            </a>
+                        )}
                     </div>
                     <p><strong>Gender - </strong>{person.gender === 1 ? "Female" : "Male"}</p>
                     <p><strong>Birthday - </strong>{person.birthday}</p>
@@ -74,7 +88,7 @@ export default async function PersonPage({
                     {person.also_known_as && person.also_known_as.length > 0 && (
                         <div className="mt-2">
                             <strong>Also Known As:</strong>
-                            <ul className="list-disc list-inside text-sm text-gray-400 mt-1 space-y-1">
+                            <ul className="list-disc list-inside text-sm text-muted-foreground mt-1 space-y-1">
                                 {person.also_known_as.slice(0, 5).map((name, index) => (
                                     <li key={index}>{name}</li>
                                 ))}
@@ -99,7 +113,7 @@ export default async function PersonPage({
                                 href={`/${credit.media_type === "movie" ? "movie" : "tv"}/${credit.id}`}
                                 className="group"
                             >
-                                <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-gray-200 mb-2">
+                                <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-muted mb-2">
                                     <Image
                                         src={
                                             credit.poster_path

@@ -8,18 +8,33 @@ import {
     NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { UserMenu } from "../user-menu"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Clapperboard, Menu, Search } from "lucide-react"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useWatchlist } from "@/components/watchlist/watchlist-provider"
+import { cn } from "@/lib/utils"
 
 export default function Navbar() {
     
     const [query, setQuery] = useState("");
     const router = useRouter();
+    const pathname = usePathname();
+    const { items, hydrated } = useWatchlist();
+    const watchlistLabel = `Watchlist${hydrated && items.length > 0 ? ` (${items.length})` : ""}`;
+    const navItems = [
+        { href: "/movies", label: "Movies", width: "w-24" },
+        { href: "/tv", label: "TV Series", width: "w-30" },
+        { href: "/people", label: "People", width: "w-20" },
+        { href: "/watchlist", label: watchlistLabel, width: "w-30" },
+    ];
+    const isActive = (href: string) =>
+        pathname === href || pathname.startsWith(`${href}/`) ||
+        (href === "/movies" && pathname.startsWith("/movie/"));
+    const currentLocation = (href: string) =>
+        pathname === href ? "page" as const : isActive(href) ? "location" as const : undefined;
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -28,87 +43,111 @@ export default function Navbar() {
     };
 
     return (
-    <header className="flex fixed top-0 z-50 w-full bg-gray-200/20 border-b rounded-b-2xl backdrop-blur-sm">
-            <div className="flex h-16 w-full items-center justify-between px-4 md:px-6">
+        <header className="fixed top-0 z-50 w-full rounded-b-2xl border-b bg-background/90 backdrop-blur-sm">
+            <div className="flex h-16 w-full items-center gap-2 px-3 sm:px-4 lg:px-6">
                 {/* Left side for small screens — Dropdown Menu */}
-                <div className="md:hidden">
+                <div className="shrink-0 lg:hidden">
                     <Sheet>
                         <SheetTrigger asChild>
-                            <Button variant="outline" size="icon">
-                                <Menu className="h-6 w-6" />
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="icon"
+                                aria-label="Open menu"
+                                className="size-11 touch-manipulation rounded-xl"
+                            >
+                                <Menu className="size-5" aria-hidden="true" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="w-64 p-4 rounded-r-2xl backdrop-blur-sm">
-                            <nav className="grid gap-6 text-lg font-medium">
-                                <Link href="/" className="hover:text-foreground">
-                                    Movies
-                                </Link>
-                                <Link href="/tv" className="hover:text-foreground">
-                                    TV Series
-                                </Link>
-                                <Link href="/people" className="hover:text-foreground">
-                                    People
-                                </Link>
-                                <Link href="/about" className="hover:text-foreground">
-                                    About
-                                </Link>
+                        <SheetContent side="left" className="w-[min(16rem,85vw)] rounded-r-2xl p-4 pt-14">
+                            <SheetTitle className="mb-3 text-lg">
+                                <SheetClose asChild>
+                                    <Link
+                                        href="/"
+                                        aria-current={pathname === "/" ? "page" : undefined}
+                                        className="inline-flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-accent hover:text-accent-foreground"
+                                    >
+                                        <Clapperboard className="size-5" aria-hidden="true" />
+                                        CineMingala
+                                    </Link>
+                                </SheetClose>
+                            </SheetTitle>
+                            <nav className="grid gap-1 text-base font-medium" aria-label="Main navigation">
+                                {navItems.map(({ href, label }) => (
+                                    <SheetClose asChild key={href}>
+                                        <Link
+                                            href={href}
+                                            aria-current={currentLocation(href)}
+                                            className={cn(
+                                                "rounded-lg px-3 py-3 transition-colors",
+                                                isActive(href)
+                                                    ? "bg-primary text-primary-foreground"
+                                                    : "hover:bg-accent hover:text-accent-foreground",
+                                            )}
+                                        >
+                                            {label}
+                                        </Link>
+                                    </SheetClose>
+                                ))}
                             </nav>
                         </SheetContent>
                     </Sheet>
                 </div>
 
                 {/* Left side for medium and larger screens — Logo */}
-                <Link href="/" className="hidden md:flex text-2xl font-semibold tracking-tight px-3 items-center">
-                    <Clapperboard className="mr-1"/><span> Movie House</span>
+                <Link href="/" className="hidden shrink-0 items-center px-3 text-2xl font-semibold tracking-tight lg:flex">
+                    <Clapperboard className="mr-1"/><span>CineMingala</span>
                 </Link>
 
                 {/* Center — Navigation links for medium and larger screens */}
-                <NavigationMenu className="hidden md:flex">
+                <NavigationMenu className="hidden lg:flex">
                     <NavigationMenuList className="flex space-x-3">
-                        <NavigationMenuItem className="w-30">
-                            <NavigationMenuLink asChild>
-                                <Link href="/tv" className="bg-gray-200/40 font-semibold text-center">TV Series</Link>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem className="w-20">
-                            <NavigationMenuLink asChild>
-                                <Link href="/people" className="bg-gray-200/40 font-semibold text-center">People</Link>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem className="w-20">
-                            <NavigationMenuLink asChild>
-                                <Link href="/about" className="bg-gray-200/40 font-semibold text-center">About</Link>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
+                        {navItems.map(({ href, label, width }) => (
+                            <NavigationMenuItem key={href} className={width}>
+                                <NavigationMenuLink asChild>
+                                    <Link
+                                        href={href}
+                                        aria-current={currentLocation(href)}
+                                        className={cn(
+                                            "text-center font-semibold",
+                                            isActive(href)
+                                                ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                                                : "bg-secondary text-secondary-foreground",
+                                        )}
+                                    >
+                                        {label}
+                                    </Link>
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
+                        ))}
                     </NavigationMenuList>
                 </NavigationMenu>
 
                 {/* Center — Search for all screen sizes */}
-                <form onSubmit={handleSearch} className="flex-1 flex justify-center px-4">
-                    <div className="relative w-full max-w-md">
+                <form onSubmit={handleSearch} role="search" className="flex min-w-0 flex-1 justify-center px-1 sm:px-4">
+                    <div className="relative w-full max-w-md min-w-0">
                         <Input
                             type="search"
+                            aria-label="Search movies, TV series, and people"
                             placeholder="Search..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="w-full pl-8 pr-10 placeholder:text-black"
+                            className="w-full min-w-0 pl-3 pr-10"
                         />
                         <Button
                             type="submit"
                             size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 bg-transparent hover:bg-gray-300/20"
+                            variant="ghost"
+                            aria-label="Search"
+                            className="absolute right-1 top-1/2 -translate-y-1/2"
                         >
-                            <Search className="h-5 w-5 text-black" />
+                            <Search className="h-5 w-5" />
                         </Button>
                     </div>
                 </form>
 
-                {/* Right side — Theme Toggle and User Menu */}
-                <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-4">
-                        <ThemeToggle />
-                        <UserMenu />
-                    </div>
+                <div className="shrink-0">
+                    <ThemeToggle />
                 </div>
             </div>
         </header>

@@ -1,10 +1,11 @@
 "use server"
 
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 import { PersonDetail } from "@/types/person";
 
 export const getPeopleDetails = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_PEOPLE_DETAILS_API_URL}/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
+    `${TMDB_ENDPOINTS.peopleDetails}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=external_ids`,
   );
 
   if (!response.ok) {
@@ -12,6 +13,5 @@ export const getPeopleDetails = async (id: string) => {
   }
 
   const data = await response.json() as PersonDetail;
-  console.log("people detail", data)
   return data;
 };

@@ -1,8 +1,9 @@
+import { TMDB_ENDPOINTS } from "@/lib/tmdb-endpoints";
 import { TvShow } from "@/types/tv-show";
 
 export async function getAiringTodayTvShows(page = 1): Promise<TvShow[]> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRING_TODAY_TV_SERIES_API_URL}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=${page}`,
+    `${TMDB_ENDPOINTS.airingTodayTv}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`,
     { next: { revalidate: 3600 } },
   );
 
